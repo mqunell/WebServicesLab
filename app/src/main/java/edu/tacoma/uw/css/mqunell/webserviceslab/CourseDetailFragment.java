@@ -32,13 +32,16 @@ public class CourseDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_course_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_course_detail, container, false);
+
         mCourseIdTextView =         view.findViewById(R.id.course_item_id);
         mCourseShortDescTextView =  view.findViewById(R.id.course_short_desc);
         mCourseLongDescTextView =   view.findViewById(R.id.course_long_desc);
         mCoursePrereqsTextView =    view.findViewById(R.id.course_prereqs);
 
+        // Show the FAB
         FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab);
         floatingActionButton.show();
 
@@ -48,6 +51,7 @@ public class CourseDetailFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         Bundle args = getArguments();
         if (args != null) {
             // Set course information based on argument passed

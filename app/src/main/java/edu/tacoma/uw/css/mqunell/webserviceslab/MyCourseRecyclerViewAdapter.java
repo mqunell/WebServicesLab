@@ -14,14 +14,15 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Course} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
-public class MyCourseRecyclerViewAdapter extends RecyclerView.Adapter<MyCourseRecyclerViewAdapter.ViewHolder> {
+public class MyCourseRecyclerViewAdapter
+        extends RecyclerView.Adapter<MyCourseRecyclerViewAdapter.ViewHolder> {
 
     private final List<Course> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyCourseRecyclerViewAdapter(List<Course> items, OnListFragmentInteractionListener listener) {
+    public MyCourseRecyclerViewAdapter(List<Course> items,
+                                       OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -60,13 +61,15 @@ public class MyCourseRecyclerViewAdapter extends RecyclerView.Adapter<MyCourseRe
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+
         public Course mItem;
 
         public ViewHolder(View view) {
             super(view);
+
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = view.findViewById(R.id.item_number);
+            mContentView = view.findViewById(R.id.content);
         }
 
         @Override

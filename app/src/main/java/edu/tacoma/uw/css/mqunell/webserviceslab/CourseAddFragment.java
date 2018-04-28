@@ -50,6 +50,7 @@ public class CourseAddFragment extends Fragment {
         mCourseLongDescEditText =   v.findViewById(R.id.add_course_long_desc);
         mCoursePrereqsEditText =    v.findViewById(R.id.add_course_prereqs);
 
+        // Hide the FAB
         FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab);
         floatingActionButton.hide();
 
@@ -69,11 +70,12 @@ public class CourseAddFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof CourseAddListener) {
             mListener = (CourseAddListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement CourseAddListener");
+        }
+        else {
+            throw new RuntimeException(context.toString() + " must implement CourseAddListener");
         }
     }
 
@@ -86,7 +88,6 @@ public class CourseAddFragment extends Fragment {
         StringBuilder sb = new StringBuilder(COURSE_ADD_URL);
 
         try {
-
             String courseId = mCourseIdEditText.getText().toString();
             sb.append("id=");
             sb.append(URLEncoder.encode(courseId, "UTF-8"));
@@ -95,7 +96,6 @@ public class CourseAddFragment extends Fragment {
             String courseShortDesc = mCourseShortDescEditText.getText().toString();
             sb.append("&shortDesc=");
             sb.append(URLEncoder.encode(courseShortDesc, "UTF-8"));
-
 
             String courseLongDesc = mCourseLongDescEditText.getText().toString();
             sb.append("&longDesc=");
@@ -106,7 +106,6 @@ public class CourseAddFragment extends Fragment {
             sb.append(URLEncoder.encode(coursePrereqs, "UTF-8"));
 
             Log.v(TAG, sb.toString());
-
         }
         catch(Exception e) {
             Toast.makeText(v.getContext(),

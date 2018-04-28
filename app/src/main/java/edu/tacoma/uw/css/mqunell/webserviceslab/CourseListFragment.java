@@ -33,9 +33,8 @@ import java.util.List;
  */
 public class CourseListFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
+    // Auto-generated variables
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -90,10 +89,10 @@ public class CourseListFragment extends Fragment {
                 mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            DownloadCoursesTask courseAsyncTask = new DownloadCoursesTask();
-            courseAsyncTask.execute(new String[]{COURSE_URL});
+            new DownloadCoursesTask().execute(new String[]{COURSE_URL});
         }
 
+        // Show the FAB
         FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab);
         floatingActionButton.show();
 
@@ -104,6 +103,7 @@ public class CourseListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
@@ -115,21 +115,12 @@ public class CourseListFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    // Used to communicate with other Fragments
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(Course item);
     }
 
@@ -138,8 +129,9 @@ public class CourseListFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... urls) {
-            String response = "";
+            StringBuilder response = new StringBuilder();
             HttpURLConnection urlConnection = null;
+
             for (String url : urls) {
                 try {
                     URL urlObject = new URL(url);
@@ -150,11 +142,12 @@ public class CourseListFragment extends Fragment {
                     BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
                     String s;
                     while ((s = buffer.readLine()) != null) {
-                        response += s;
+                        response.append(s);
                     }
                 }
                 catch (Exception e) {
-                    response = "Unable to download the list of courses. " + e.getMessage();
+                    response = new StringBuilder("Unable to download the list of courses. " +
+                            e.getMessage());
                 }
                 finally {
                     if (urlConnection != null) {
@@ -163,7 +156,7 @@ public class CourseListFragment extends Fragment {
                 }
             }
 
-            return response;
+            return response.toString();
         }
 
         @Override

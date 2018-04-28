@@ -11,10 +11,10 @@ import java.util.List;
 public class Course implements Serializable {
 
     // Web service JSON names
-    public static final String ID = "id";
-    public static final String SHORT_DESC = "shortDesc";
-    public static final String LONG_DESC = "longDesc";
-    public static final String PRE_REQS = "prereqs";
+    private static final String ID = "id";
+    private static final String SHORT_DESC = "shortDesc";
+    private static final String LONG_DESC = "longDesc";
+    private static final String PRE_REQS = "prereqs";
 
     private String mCourseId;
     private String mShortDescription;
@@ -29,7 +29,7 @@ public class Course implements Serializable {
     }
 
     public static List<Course> parseCourseJSON(String courseJSON) throws JSONException {
-        List<Course> courseList = new ArrayList<Course>();
+        List<Course> courseList = new ArrayList<>();
 
         if (courseJSON != null) {
             JSONArray arr = new JSONArray(courseJSON);
@@ -52,31 +52,15 @@ public class Course implements Serializable {
         return mCourseId;
     }
 
-    public void setCourseId(String courseId) {
-        this.mCourseId = courseId;
-    }
-
     public String getShortDescription() {
         return mShortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.mShortDescription = shortDescription;
     }
 
     public String getLongDescription() {
         return mLongDescription;
     }
 
-    public void setLongDescription(String longDescription) {
-        this.mLongDescription = longDescription;
-    }
-
     public String getPrereqs() {
         return mPrereqs;
-    }
-
-    public void setPrereqs(String prereqs) {
-        this.mPrereqs = prereqs;
     }
 }

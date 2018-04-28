@@ -27,7 +27,7 @@ public class CourseActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
 
-        // Does this go here?
+        // FAB onClick listener
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,18 +40,19 @@ public class CourseActivity extends AppCompatActivity implements
             }
         });
 
-        CourseListFragment courseListFragment = new CourseListFragment();
-
+        // Start CourseListFragment
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, courseListFragment)
+                .add(R.id.fragment_container, new CourseListFragment())
                 .commit();
     }
 
     @Override
     public void onListFragmentInteraction(Course item) {
         CourseDetailFragment courseDetailFragment = new CourseDetailFragment();
+
         Bundle args = new Bundle();
         args.putSerializable(CourseDetailFragment.COURSE_ITEM_SELECTED, item);
+
         courseDetailFragment.setArguments(args);
 
         getSupportFragmentManager().beginTransaction()
@@ -62,8 +63,7 @@ public class CourseActivity extends AppCompatActivity implements
 
     @Override
     public void addCourse(String url) {
-        AddCourseTask task = new AddCourseTask();
-        task.execute(new String[]{url});
+        new AddCourseTask().execute(new String[]{url});
 
         // Takes you back to the previous fragment by popping the current fragment out
         getSupportFragmentManager().popBackStackImmediate();
@@ -73,13 +73,8 @@ public class CourseActivity extends AppCompatActivity implements
     private class AddCourseTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
         protected String doInBackground(String... urls) {
-            String response = "";
+            StringBuilder response = new StringBuilder();
             HttpURLConnection urlConnection = null;
 
             for (String url : urls) {
@@ -92,27 +87,27 @@ public class CourseActivity extends AppCompatActivity implements
                     BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
                     String s;
                     while ((s = buffer.readLine()) != null) {
-                        response += s;
+                        response.append(s);
                     }
 
-                } catch (Exception e) {
-                    response = "Unable to add course, Reason: "
-                            + e.getMessage();
-                } finally {
+                }
+                catch (Exception e) {
+                    response = new StringBuilder("Unable to add course. "
+                            + e.getMessage());
+                }
+                finally {
                     if (urlConnection != null)
                         urlConnection.disconnect();
                 }
             }
-            return response;
-        }
 
+            return response.toString();
+        }
 
         /**
          * It checks to see if there was a problem with the URL(Network) which is when an
-         * exception is caught. It tries to call the parse Method and checks to see if it was successful.
-         * If not, it displays the exception.
-         *
-         * @param result
+         * exception is caught. It tries to call the parse Method and checks to see if it was
+         * successful. If not, it displays the exception.
          */
         @Override
         protected void onPostExecute(String result) {
@@ -120,17 +115,20 @@ public class CourseActivity extends AppCompatActivity implements
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 String status = (String) jsonObject.get("result");
+
                 if (status.equals("success")) {
                     Toast.makeText(getApplicationContext(), "Course successfully added!"
                             , Toast.LENGTH_LONG)
                             .show();
-                } else {
+                }
+                else {
                     Toast.makeText(getApplicationContext(), "Failed to add: "
                                     + jsonObject.get("error")
                             , Toast.LENGTH_LONG)
                             .show();
                 }
-            } catch (JSONException e) {
+            }
+            catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Something wrong with the data" +
                         e.getMessage(), Toast.LENGTH_LONG).show();
             }
