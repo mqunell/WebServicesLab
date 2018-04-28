@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Web Services Lab</string>
     <string name="title_activity_course">CourseActivity</string>
+
+    <string name="add_id">Course ID (ex. TCSS 450)</string>
+    <string name="add_short_desc">Short Description (ex. Mobile Apps)</string>
+    <string name="add_long_desc">Long Description</string>
+    <string name="add_prereqs">Prerequisite Courses</string>
+    <string name="button_add_course">Add Course</string>
 </resources>

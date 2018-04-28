@@ -1,17 +1,28 @@
 package edu.tacoma.uw.css.mqunell.webserviceslab;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import org.json.JSONException;
 
 import edu.tacoma.uw.css.mqunell.webserviceslab.course.Course;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -29,7 +40,12 @@ public class CourseListFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
 
 
+    private static final String TAG = "CourseListFragment";
+    private static final String COURSE_URL =
+            "http://mqunell.000webhostapp.com/web_services_lab/list.php?cmd=courses";
+
     private List<Course> mCourseList;
+    private RecyclerView mRecyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -65,14 +81,22 @@ public class CourseListFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            mRecyclerView = (RecyclerView) view;
+
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
             }
-            recyclerView.setAdapter(new MyCourseRecyclerViewAdapter(mCourseList, mListener));
+            else {
+                mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+
+            DownloadCoursesTask courseAsyncTask = new DownloadCoursesTask();
+            courseAsyncTask.execute(new String[]{COURSE_URL});
         }
+
+        FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab);
+        floatingActionButton.show();
+
         return view;
     }
 
@@ -107,5 +131,68 @@ public class CourseListFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Course item);
+    }
+
+
+    private class DownloadCoursesTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+
+                    InputStream content = urlConnection.getInputStream();
+
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s;
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+                }
+                catch (Exception e) {
+                    response = "Unable to download the list of courses. " + e.getMessage();
+                }
+                finally {
+                    if (urlConnection != null) {
+                        urlConnection.disconnect();
+                    }
+                }
+            }
+
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Log.v(TAG, "onPostExecute");
+
+            if (result.startsWith("Unable to")) {
+                Toast.makeText(getActivity().getApplicationContext(),
+                        result,
+                        Toast.LENGTH_SHORT).show();
+
+                return;
+            }
+
+            try {
+                mCourseList = Course.parseCourseJSON(result);
+            }
+            catch (JSONException e) {
+                Toast.makeText(getActivity().getApplicationContext(),
+                        e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+
+                return;
+            }
+
+            // Everything is good, show the list of courses
+            if (!mCourseList.isEmpty()) {
+                mRecyclerView.setAdapter(new MyCourseRecyclerViewAdapter(mCourseList, mListener));
+            }
+        }
     }
 }

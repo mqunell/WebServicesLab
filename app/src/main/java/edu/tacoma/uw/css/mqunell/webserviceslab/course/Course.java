@@ -14,18 +14,18 @@ public class Course implements Serializable {
     public static final String ID = "id";
     public static final String SHORT_DESC = "shortDesc";
     public static final String LONG_DESC = "longDesc";
-    public static final String PRE_REQS = "preReqs";
+    public static final String PRE_REQS = "prereqs";
 
     private String mCourseId;
     private String mShortDescription;
     private String mLongDescription;
-    private String mPreReqs;
+    private String mPrereqs;
 
-    public Course(String courseId, String shortDesc, String longDesc, String preReqs) {
+    public Course(String courseId, String shortDesc, String longDesc, String prereqs) {
         this.mCourseId = courseId;
         this.mShortDescription = shortDesc;
         this.mLongDescription = longDesc;
-        this.mPreReqs = preReqs;
+        this.mPrereqs = prereqs;
     }
 
     public static List<Course> parseCourseJSON(String courseJSON) throws JSONException {
@@ -72,11 +72,11 @@ public class Course implements Serializable {
         this.mLongDescription = longDescription;
     }
 
-    public String getPreReqs() {
-        return mPreReqs;
+    public String getPrereqs() {
+        return mPrereqs;
     }
 
-    public void setPreReqs(String preReqs) {
-        this.mPreReqs = preReqs;
+    public void setPrereqs(String prereqs) {
+        this.mPrereqs = prereqs;
     }
 }
