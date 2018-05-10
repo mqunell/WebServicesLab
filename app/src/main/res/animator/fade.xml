@@ -25,7 +25,7 @@
                     android:valueFrom="@color/uwPurple"
                     android:valueTo="@color/uwMetallicGold" />
 
-    <!-- Fade out and back in -->
+    <!-- Fade out and back in repeatedly -->
     <objectAnimator
         android:duration="2000"
         android:interpolator="@android:anim/linear_interpolator"
