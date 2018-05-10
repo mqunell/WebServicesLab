@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/uwMetallicGold</item>
         <item name="colorPrimaryDark">@color/uwGold</item>
         <item name="colorAccent">@color/uwMetallicGold</item>
+        <item name="android:textColorPrimary">@color/uwWhite</item>
         <item name="android:textColor">@color/uwPurple</item>
         <item name="android:textSize">24sp</item>
         <item name="android:tint">@color/uwPurple</item>
@@ -26,6 +27,10 @@
 
     <style name="CourseIdEditTextStyle" parent="EditTextStyle">
         <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="ButtonStyle">
+
     </style>
 
     <!--<style name="AppTheme.NoActionBar">

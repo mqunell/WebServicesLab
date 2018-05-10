@@ -1,10 +1,17 @@
 <resources>
     <string name="app_name">Web Services Lab</string>
     <string name="title_activity_course">CourseActivity</string>
+    <string name="action_about">About</string>
+    <string name="action_animations">Animations</string>
 
     <string name="add_id">Course ID (ex. TCSS 450)</string>
     <string name="add_short_desc">Short Description (ex. Mobile Apps)</string>
     <string name="add_long_desc">Long Description</string>
     <string name="add_prereqs">Prerequisite Courses</string>
     <string name="button_add_course">Add Course</string>
+
+    <string name="animating">UWT</string>
+    <string name="btn_spin_text">Spin</string>
+    <string name="btn_move_text">Move</string>
+    <string name="btn_fade_text">Fade</string>
 </resources>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="sequentially">
+
+    <!-- Rotate on Y axis -->
+    <objectAnimator
+        android:duration="1000"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:propertyName="rotationY"
+        android:valueFrom="0"
+        android:valueTo="90" />
+
+    <!-- Change colors -->
+    <objectAnimator android:duration="0">
+        <propertyValuesHolder
+            android:propertyName="backgroundColor"
+            android:valueTo="@color/uwGold" />
+        <propertyValuesHolder
+            android:propertyName="textColor"
+            android:valueTo="@color/uwPurple" />
+    </objectAnimator>
+
+    <!-- Rotate on Y axis again -->
+    <objectAnimator
+        android:duration="1000"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:propertyName="rotationY"
+        android:valueFrom="-90"
+        android:valueTo="0" />
+
+    <!-- Rotate on X axis -->
+    <objectAnimator
+        android:duration="1000"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:propertyName="rotationX"
+        android:valueFrom="0"
+        android:valueTo="90" />
+
+    <!-- Change colors -->
+    <objectAnimator android:duration="0">
+        <propertyValuesHolder
+            android:propertyName="backgroundColor"
+            android:valueTo="@color/uwPurple" />
+        <propertyValuesHolder
+            android:propertyName="textColor"
+            android:valueTo="@color/uwGold" />
+    </objectAnimator>
+
+    <!-- Rotate on X axis again -->
+    <objectAnimator
+        android:duration="1000"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:propertyName="rotationX"
+        android:valueFrom="-90"
+        android:valueTo="0" />
+
+    <!-- Spin -->
+    <objectAnimator
+        android:duration="1000"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:propertyName="rotation"
+        android:valueFrom="0"
+        android:valueTo="360" />
+
+    <!-- Spin on a pivot point -->
+    <objectAnimator android:duration="0">
+        <propertyValuesHolder
+            android:propertyName="pivotY"
+            android:valueTo="0" />
+        <propertyValuesHolder
+            android:propertyName="pivotX"
+            android:valueTo="0" />
+    </objectAnimator>
+
+    <objectAnimator
+        android:duration="1000"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:propertyName="rotation"
+        android:valueFrom="0"
+        android:valueTo="360" />
+</set>
