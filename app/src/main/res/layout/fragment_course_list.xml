@@ -6,6 +6,7 @@
     android:name="edu.tacoma.uw.css.mqunell.webserviceslab.CourseListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="50dp"
     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
     tools:context=".CourseListFragment"
     tools:listitem="@layout/fragment_course" />

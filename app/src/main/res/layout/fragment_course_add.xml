@@ -3,40 +3,36 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:layout_marginTop="50dp"
               android:orientation="vertical"
               android:padding="8dp"
               tools:context=".CourseAddFragment">
 
     <EditText
         android:id="@+id/add_course_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:hint = "@string/add_id"
-        android:inputType="text" />
+        style="@style/CourseIdEditTextStyle"/>
 
     <EditText
         android:id="@+id/add_course_short_desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:hint = "@string/add_short_desc"
-        android:inputType="text" />
+        style="@style/EditTextStyle"/>
 
     <EditText
         android:id="@+id/add_course_long_desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:hint = "@string/add_long_desc"
-        android:inputType="text" />
+        style="@style/EditTextStyle"/>
 
     <EditText
         android:id="@+id/add_course_prereqs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:hint = "@string/add_prereqs"
-        android:inputType="text" />
+        style="@style/EditTextStyle"/>
 
+    <!--
+        android:textColor="@color/uw_button_colors"-->
     <Button
         android:id="@+id/button_add_course"
+        android:background="@drawable/uw_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_add_course" />

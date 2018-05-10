@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="uwPurple">#4B2E83</color>
+    <color name="uwGold">#B7A572</color>
+    <color name="uwMetallicGold">#85754D</color>
+    <color name="uwLightGray">#D9D9D9</color>
+    <color name="uwDarkGray">#444444</color>
+    <color name="uwWhite">#FFFFFF</color>
+    <color name="uwBlack">#000000</color>
 </resources>
