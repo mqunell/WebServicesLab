@@ -14,4 +14,9 @@
     <string name="btn_spin_text">Spin</string>
     <string name="btn_move_text">Move</string>
     <string name="btn_fade_text">Fade</string>
+
+    <string name="LOGIN_PREFS">edu.uw.tacoma.css.datalab.PREFS</string>
+    <string name="LOGGED_IN">loggedin</string>
+    <string name="logout">Logout</string>
+    <string name="action_logout">Logout</string>
 </resources>

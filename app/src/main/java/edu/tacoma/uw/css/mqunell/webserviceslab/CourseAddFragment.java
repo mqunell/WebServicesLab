@@ -92,7 +92,6 @@ public class CourseAddFragment extends Fragment {
             sb.append("id=");
             sb.append(URLEncoder.encode(courseId, "UTF-8"));
 
-
             String courseShortDesc = mCourseShortDescEditText.getText().toString();
             sb.append("&shortDesc=");
             sb.append(URLEncoder.encode(courseShortDesc, "UTF-8"));

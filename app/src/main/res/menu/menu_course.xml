@@ -5,14 +5,24 @@
       tools:context="edu.uw.tacoma.css.mqunell.webserviceslab.CourseActivity">
 
     <item
-        android:id="@+id/action_animations"
-        android:title="@string/action_animations"
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="@string/action_logout"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_about"
         android:icon="@android:drawable/ic_menu_info_details"
+        android:orderInCategory="200"
         android:title="@string/action_about"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_animations"
+        android:orderInCategory="300"
+        android:title="@string/action_animations"
+        app:showAsAction="never" />
+
+
 
 </menu>

@@ -3,6 +3,7 @@
           package="edu.tacoma.uw.css.mqunell.webserviceslab">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -11,12 +12,14 @@
         android:roundIcon="@mipmap/uw"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CourseActivity">
+        <activity android:name=".authenticate.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".CourseActivity">
         </activity>
         <activity android:name=".AnimationsActivity">
         </activity>

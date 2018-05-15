@@ -1,6 +1,8 @@
 package edu.tacoma.uw.css.mqunell.webserviceslab;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,7 +22,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.tacoma.uw.css.mqunell.webserviceslab.authenticate.SignInActivity;
 import edu.tacoma.uw.css.mqunell.webserviceslab.course.Course;
+import edu.tacoma.uw.css.mqunell.webserviceslab.data.CourseDB;
 
 public class CourseActivity extends AppCompatActivity implements
         CourseListFragment.OnListFragmentInteractionListener,
@@ -65,12 +69,21 @@ public class CourseActivity extends AppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_animations:
-                startActivity(new Intent(this, AnimationsActivity.class));
+            case R.id.action_logout:
+                SharedPreferences sharedPreferences =
+                        getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+                sharedPreferences.edit().putBoolean(getString(R.string.LOGGED_IN), false).apply();
+
+                startActivity(new Intent(this, SignInActivity.class));
+                finish();
                 return true;
 
             case R.id.action_about:
                 Toast.makeText(this, "Showing courses in CSS", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.action_animations:
+                startActivity(new Intent(this, AnimationsActivity.class));
                 return true;
 
             default:

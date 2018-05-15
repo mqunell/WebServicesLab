@@ -3,6 +3,8 @@ package edu.tacoma.uw.css.mqunell.webserviceslab;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 
 import edu.tacoma.uw.css.mqunell.webserviceslab.course.Course;
+import edu.tacoma.uw.css.mqunell.webserviceslab.data.CourseDB;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -48,6 +51,12 @@ public class CourseListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private View mLoadingView;
     private int mLongAnimationDuration;
+
+
+
+    private CourseDB mCourseDB;
+
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -104,6 +113,29 @@ public class CourseListFragment extends Fragment {
         FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab);
         floatingActionButton.show();
 
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            DownloadCoursesTask courseAsyncTask = new DownloadCoursesTask();
+            courseAsyncTask.execute(new String[]{COURSE_URL});
+        }
+        else {
+            Toast.makeText(view.getContext(),
+                    "No network connection available. Displaying locally stored data",
+                    Toast.LENGTH_SHORT).show();
+
+            if (mCourseDB == null) {
+                mCourseDB = new CourseDB(getActivity());
+            }
+            if (mCourseList == null) {
+                mCourseList = mCourseDB.getCourses();
+            }
+
+            mRecyclerView.setAdapter(new MyCourseRecyclerViewAdapter(mCourseList, mListener));
+        }
+
+
         return view;
     }
 
@@ -131,7 +163,6 @@ public class CourseListFragment extends Fragment {
                 .alpha(1f)
                 .setDuration(mLongAnimationDuration)
                 .setListener(null);
-
     }
 
     @Override
@@ -217,8 +248,29 @@ public class CourseListFragment extends Fragment {
             }
 
             // Everything is good, show the list of courses
+            /*if (!mCourseList.isEmpty()) {
+                crossfade();
+                mRecyclerView.setAdapter(new MyCourseRecyclerViewAdapter(mCourseList, mListener));
+            }*/
             if (!mCourseList.isEmpty()) {
                 crossfade();
+
+                if (mCourseDB == null) {
+                    mCourseDB = new CourseDB(getActivity());
+                }
+
+                // Delete old data so that you can refresh the local
+                // database with the network data.
+                mCourseDB.deleteCourses();
+
+                // Also, add to the local database
+                for (int i=0; i<mCourseList.size(); i++) {
+                    Course course = mCourseList.get(i);
+                    mCourseDB.insertCourse(course.getCourseId(),
+                            course.getShortDescription(),
+                            course.getLongDescription(),
+                            course.getPrereqs());
+                }
                 mRecyclerView.setAdapter(new MyCourseRecyclerViewAdapter(mCourseList, mListener));
             }
         }
