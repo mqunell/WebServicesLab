@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.net.URLEncoder;
 
@@ -107,9 +106,7 @@ public class CourseAddFragment extends Fragment {
             Log.v(TAG, sb.toString());
         }
         catch(Exception e) {
-            Toast.makeText(v.getContext(),
-                    "Something wrong with the url" + e.getMessage(),
-                    Toast.LENGTH_LONG).show();
+            Log.v("WebServices", "CourseAddFragment - Something wrong witht he url: " + e.getMessage());
         }
 
         return sb.toString();

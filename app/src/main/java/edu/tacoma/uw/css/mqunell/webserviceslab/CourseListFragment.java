@@ -89,7 +89,7 @@ public class CourseListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
-        mLoadingView = getActivity().findViewById(R.id.loading_spinner);
+        //mLoadingView = getActivity().findViewById(R.id.loading_spinner);
 
         // Retrieve and cache the system's default "long" animation time
         mLongAnimationDuration = getResources().getInteger(android.R.integer.config_longAnimTime);
@@ -139,6 +139,7 @@ public class CourseListFragment extends Fragment {
         return view;
     }
 
+    /*
     private void crossfade() {
         // Animate the loading view to 0% opacity. After the animation ends, set its visibility
         // to GONE as an optimization step (it won't participate in layout passes, etc)
@@ -163,7 +164,7 @@ public class CourseListFragment extends Fragment {
                 .alpha(1f)
                 .setDuration(mLongAnimationDuration)
                 .setListener(null);
-    }
+    }*/
 
     @Override
     public void onAttach(Context context) {
@@ -229,10 +230,7 @@ public class CourseListFragment extends Fragment {
             Log.v(TAG, "onPostExecute");
 
             if (result.startsWith("Unable to")) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        result,
-                        Toast.LENGTH_SHORT).show();
-
+                Log.v("WebServices", "CourseListFragment: " + result);
                 return;
             }
 
@@ -240,10 +238,7 @@ public class CourseListFragment extends Fragment {
                 mCourseList = Course.parseCourseJSON(result);
             }
             catch (JSONException e) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        e.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-
+                Log.v("WebServices", "CourseListFragment: " + e.getMessage());
                 return;
             }
 
@@ -253,7 +248,7 @@ public class CourseListFragment extends Fragment {
                 mRecyclerView.setAdapter(new MyCourseRecyclerViewAdapter(mCourseList, mListener));
             }*/
             if (!mCourseList.isEmpty()) {
-                crossfade();
+                //crossfade();
 
                 if (mCourseDB == null) {
                     mCourseDB = new CourseDB(getActivity());

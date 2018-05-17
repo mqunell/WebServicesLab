@@ -26,12 +26,12 @@
 
     <include layout="@layout/content_course" />
 
-    <ProgressBar
+    <!--<ProgressBar
         android:id="@+id/loading_spinner"
         style="?android:progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="230dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center" />-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

@@ -15,8 +15,8 @@ import edu.tacoma.uw.css.mqunell.webserviceslab.course.Course;
 public class CourseDB {
 
     public static final String DB_NAME = "edu.uw.tacoma.css.datalab.Course.db";
-    private static final String COURSE_TABLE = "Course";
     public static final int DB_VERSION = 1;
+    private static final String COURSE_TABLE = "Course";
 
     private CourseDBHelper mCourseDBHelper;
     private SQLiteDatabase mSQLiteDatabase;
@@ -37,7 +37,7 @@ public class CourseDB {
         contentValues.put("longDesc", longDesc);
         contentValues.put("prereqs", prereqs);
 
-        long rowId = mSQLiteDatabase.insert("edu.uw.tacoma.css.datalab.Course", null, contentValues);
+        long rowId = mSQLiteDatabase.insert("Course", null, contentValues);
         return rowId != -1;
     }
 
@@ -49,6 +49,9 @@ public class CourseDB {
     }
 
 
+    /**
+     * Inner CourseDBHelper class
+     */
     class CourseDBHelper extends SQLiteOpenHelper {
 
         private final String CREATE_COURSE_SQL;

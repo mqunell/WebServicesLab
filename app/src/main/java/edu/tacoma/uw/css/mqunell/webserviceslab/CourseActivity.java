@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +25,6 @@ import java.net.URL;
 
 import edu.tacoma.uw.css.mqunell.webserviceslab.authenticate.SignInActivity;
 import edu.tacoma.uw.css.mqunell.webserviceslab.course.Course;
-import edu.tacoma.uw.css.mqunell.webserviceslab.data.CourseDB;
 
 public class CourseActivity extends AppCompatActivity implements
         CourseListFragment.OnListFragmentInteractionListener,
@@ -162,20 +162,14 @@ public class CourseActivity extends AppCompatActivity implements
                 String status = (String) jsonObject.get("result");
 
                 if (status.equals("success")) {
-                    Toast.makeText(getApplicationContext(), "Course successfully added!"
-                            , Toast.LENGTH_LONG)
-                            .show();
+                    Log.v("WebServices", "CourseActivity - Course successfully added");
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Failed to add: "
-                                    + jsonObject.get("error")
-                            , Toast.LENGTH_LONG)
-                            .show();
+                    Log.v("WebServices", "CourseActivity - Failed to add: " + jsonObject.get("error"));
                 }
             }
             catch (JSONException e) {
-                Toast.makeText(getApplicationContext(), "Something wrong with the data" +
-                        e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.v("WebServices", "CourseActivity - Something wrong with the data: " + e.getMessage());
             }
         }
     }
